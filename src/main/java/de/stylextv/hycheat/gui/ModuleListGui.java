@@ -3,7 +3,7 @@ package de.stylextv.hycheat.gui;
 import de.stylextv.hycheat.module.Module;
 import de.stylextv.hycheat.module.ModuleManager;
 import de.stylextv.hycheat.util.ItemUtil;
-import net.minecraft.inventory.container.*;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;

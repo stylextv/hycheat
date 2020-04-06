@@ -85,7 +85,7 @@ public class MurderMysteryModule extends Module {
     }
     @Override
     public boolean shouldBeActive(String sidebarTitle, String title) {
-        if(sidebarTitle.equals("MURDER MYSTERY")) {
+        if("MURDER MYSTERY".equals(sidebarTitle)) {
             NonNullList<ItemStack> inv=Minecraft.getInstance().player.inventory.mainInventory;
             if(inv.get(4).getItem()==Items.FILLED_MAP&&inv.get(7).getItem()==Items.ARMOR_STAND) {
                 if(!hasRole&&title.length()>=2) {
@@ -165,7 +165,7 @@ public class MurderMysteryModule extends Module {
 
     private static boolean isSwordItem(Item item) {
         for(Item check:SWORD_SKINS) {
-            if(check==item) return true;
+            if(check.equals(item)) return true;
         }
         return false;
     }
