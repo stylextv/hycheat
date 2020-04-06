@@ -7,12 +7,10 @@ import de.stylextv.hycheat.util.ScoreboardUtil;
 import de.stylextv.hycheat.util.TitleUtil;
 import de.stylextv.hycheat.world.GlowManager;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.IngameGui;
 import net.minecraft.entity.Entity;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 public class WorldTickEvent {
 

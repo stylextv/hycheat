@@ -1,8 +1,7 @@
 package de.stylextv.hycheat.module;
 
+import de.stylextv.hycheat.util.TextUtil;
 import net.minecraft.item.Item;
-
-import java.util.ArrayList;
 
 public abstract class Module {
 
@@ -19,20 +18,7 @@ public abstract class Module {
         this.displayName=displayName;
         this.item=item;
 
-        ArrayList<String> descriptionLines=new ArrayList<>();
-        String currentLine="";
-        for(String word:description.split(" ")) {
-            if(currentLine.length()+word.length()+1>26) {
-                descriptionLines.add(currentLine);
-                currentLine="";
-            } else if(currentLine.length()!=0) currentLine=currentLine+" ";
-            currentLine=currentLine+word;
-        }
-        descriptionLines.add(currentLine);
-        this.description=new String[descriptionLines.size()];
-        for(int i=0; i<this.description.length; i++) {
-            this.description[i]=descriptionLines.get(i);
-        }
+        this.description=TextUtil.splitDescription(description);
     }
     protected void setSettings(ModuleSetting[] settings) {
         this.settings=settings;
