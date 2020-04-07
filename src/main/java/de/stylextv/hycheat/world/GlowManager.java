@@ -14,6 +14,7 @@ public class GlowManager {
 
     private static boolean ready = false;
     private static Scoreboard scoreboard;
+    public static ScorePlayerTeam RED;
     public static ScorePlayerTeam RED_DARK;
     public static ScorePlayerTeam GOLD;
     public static ScorePlayerTeam GREEN;
@@ -24,6 +25,8 @@ public class GlowManager {
             ready=true;
             scoreboard = Minecraft.getInstance().world.getScoreboard();
 
+            RED = scoreboard.createTeam("red");
+            RED.setColor(TextFormatting.RED);
             RED_DARK = scoreboard.createTeam("dark red");
             RED_DARK.setColor(TextFormatting.DARK_RED);
             GOLD = scoreboard.createTeam("gold");

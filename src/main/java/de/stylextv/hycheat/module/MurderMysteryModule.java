@@ -54,7 +54,7 @@ public class MurderMysteryModule extends Module {
             Items.REDSTONE_TORCH
     };
 
-    private boolean foundMurderer=false;
+    private int foundMurderers;
     private boolean hasRole;
     private boolean isMurderer;
 
@@ -62,20 +62,20 @@ public class MurderMysteryModule extends Module {
 
     public MurderMysteryModule() {
         super(
-                "mm_classic", "Murder Mystery Classic", Items.IRON_SWORD,
-                "This module helps you by marking players and other objects in the classic murder mystery gamemode."
+                "mm_classic", "Murder Mystery Classic/Double Up", Items.IRON_SWORD,
+                "This module helps you by marking players and other objects in the classic and \\\"double up\\\" murder mystery gamemodes."
         );
         setSettings(new ModuleSetting[] {
-                showMurderer=new ModuleSetting("show_mur","Show Murderer",Items.DIAMOND_AXE,"Shows the current position of the murderer as innocent."),
+                showMurderer=new ModuleSetting("show_mur","Show Murderer",Items.DIAMOND_AXE,"Shows the current position of the murderer(s) as innocent."),
                 showGold=new ModuleSetting("show_gold","Show Gold",Items.GOLD_INGOT,"Shows the position of gold ingots as innocent."),
-                showBow=new ModuleSetting("show_bow","Show Bow",Items.BOW,"Shows the current position of the bow as innocent."),
+                showBow=new ModuleSetting("show_bow","Show Bow",Items.BOW,"Shows the current position of a bow as innocent."),
                 showPlayers=new ModuleSetting("show_players","Show Players",Items.PLAYER_HEAD,"Shows the current position of the players as murderer.")
         });
     }
 
     @Override
     public void onEnable() {
-        foundMurderer=false;
+        foundMurderers=0;
     }
     @Override
     public void onDisable() {
@@ -124,24 +124,21 @@ public class MurderMysteryModule extends Module {
                 }
             }
         } else {
-            if(!foundMurderer&&showMurderer.isEnabled()) {
+            if(foundMurderers<2&&showMurderer.isEnabled()) {
                 List<AbstractClientPlayerEntity> players= Minecraft.getInstance().world.getPlayers();
                 for(AbstractClientPlayerEntity playerEntity: players) {
                     if(playerEntity!=Minecraft.getInstance().player&&!playerEntity.isSleeping()) {
                         Item item=playerEntity.getHeldItem(Hand.MAIN_HAND).getItem();
                         if(item != Items.AIR || item != Items.BOW || item != Items.ARROW) {
-                            if(isSwordItem(item)) {
-                                foundMurderer=true;
-                                if(!GlowManager.isGlowing(playerEntity)) {
-                                    CommandHandler.sendFeedback("The murderer has been located: §4"+playerEntity.getName().getUnformattedComponentText());
-                                    CommandHandler.sendFeedback("They are using this as a weapon: §b"+item.getName().getString());
-                                    GlowManager.addGlow(playerEntity,GlowManager.RED_DARK);
-                                    Vec3d playerPos=Minecraft.getInstance().player.getPositionVector();
-                                    Vec3d targetPos=playerEntity.getPositionVector();
-                                    Vec3d loc=playerPos.add(targetPos.subtract(playerPos).normalize().mul(3,3,3));
-                                    Minecraft.getInstance().world.playSound(loc.getX(),loc.getY(),loc.getZ(), SoundEvents.ENTITY_EVOKER_CAST_SPELL, SoundCategory.PLAYERS,1,1,false);
-                                }
-                                break;
+                            if(isSwordItem(item)&&!GlowManager.isGlowing(playerEntity)) {
+                                foundMurderers++;
+                                CommandHandler.sendFeedback("A murderer has been located: §4"+playerEntity.getName().getUnformattedComponentText());
+                                CommandHandler.sendFeedback("They are using this as a weapon: §b"+item.getName().getString());
+                                GlowManager.addGlow(playerEntity,GlowManager.RED_DARK);
+                                Vec3d playerPos=Minecraft.getInstance().player.getPositionVector();
+                                Vec3d targetPos=playerEntity.getPositionVector();
+                                Vec3d loc=playerPos.add(targetPos.subtract(playerPos).normalize().mul(3,3,3));
+                                Minecraft.getInstance().world.playSound(loc.getX(),loc.getY(),loc.getZ(), SoundEvents.ENTITY_EVOKER_CAST_SPELL, SoundCategory.PLAYERS,1,1,false);
                             }
                         }
                     }

@@ -2,11 +2,12 @@ package de.stylextv.hycheat.module;
 
 public class ModuleManager {
 
-    private static Module[] modules=new Module[1];
+    private static Module[] modules=new Module[2];
     private static Module activeModule;
 
     public static void setup() {
         modules[0]=new MurderMysteryModule();
+        modules[1]=new FarmHuntModule();
     }
 
     public static void onTick() {
