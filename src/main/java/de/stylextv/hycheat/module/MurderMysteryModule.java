@@ -58,7 +58,10 @@ public class MurderMysteryModule extends Module {
     private boolean hasRole;
     private boolean isMurderer;
 
-    private ModuleSetting showMurderer,showGold,showBow,showPlayers;
+    private ModuleSetting showMurderer;
+    private ModuleSetting showGold;
+    private ModuleSetting showBow;
+    private ModuleSetting showPlayers;
 
     public MurderMysteryModule() {
         super(

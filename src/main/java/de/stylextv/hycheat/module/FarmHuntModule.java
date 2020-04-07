@@ -28,7 +28,8 @@ public class FarmHuntModule extends Module {
     private boolean hasRole;
     private boolean isHunter;
 
-    private ModuleSetting showAnimals,showHunters;
+    private ModuleSetting showAnimals;
+    private ModuleSetting showHunters;
 
     public FarmHuntModule() {
         super(
@@ -94,7 +95,7 @@ public class FarmHuntModule extends Module {
     private static boolean isAnimal(Entity e) {
         EntityType type=e.getType();
         for(EntityType check:ANIMAL_TYPES) {
-            if(type==check) return true;
+            if(type.equals(check)) return true;
         }
         return false;
     }
