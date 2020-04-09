@@ -2,6 +2,9 @@ package de.stylextv.hycheat.module;
 
 import de.stylextv.hycheat.util.TextUtil;
 import net.minecraft.item.Item;
+import net.minecraftforge.client.event.InputEvent;
+import net.minecraftforge.client.event.sound.PlaySoundEvent;
+import net.minecraftforge.event.entity.player.AttackEntityEvent;
 
 public abstract class Module {
 
@@ -26,8 +29,11 @@ public abstract class Module {
 
     public abstract void onEnable();
     public abstract void onDisable();
-    public abstract boolean shouldBeActive(String sidebarTitle, String title);
+    public abstract boolean shouldBeActive(String sidebarTitle, String[] sidebar, String title);
     public abstract void onTick();
+    public abstract void onPlaySound(PlaySoundEvent event);
+    public abstract void onUserClick(InputEvent.ClickInputEvent event);
+    public abstract void onOverlayRender();
 
     public String getName() {
         return name;

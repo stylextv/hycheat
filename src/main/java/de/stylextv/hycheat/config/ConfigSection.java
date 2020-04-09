@@ -17,7 +17,7 @@ public class ConfigSection {
         values[0]=builder.define("enabled", true);
         for(int i = 0; i< m.getSettings().length; i++) {
             ModuleSetting setting=m.getSettings()[i];
-            values[i+1]=builder.define(setting.getName(), true);
+            values[i+1]=builder.define(setting.getName(), setting.getDefaultEnabled());
         }
 
         builder.pop();

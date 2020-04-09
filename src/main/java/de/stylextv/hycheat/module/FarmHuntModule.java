@@ -9,6 +9,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.NonNullList;
+import net.minecraftforge.client.event.InputEvent;
+import net.minecraftforge.client.event.sound.PlaySoundEvent;
 
 import java.util.List;
 
@@ -22,7 +24,8 @@ public class FarmHuntModule extends Module {
             EntityType.OCELOT,
             EntityType.SHEEP,
             EntityType.DONKEY,
-            EntityType.WOLF
+            EntityType.WOLF,
+            EntityType.CAT
     };
 
     private boolean hasRole;
@@ -38,7 +41,7 @@ public class FarmHuntModule extends Module {
         );
         setSettings(new ModuleSetting[] {
                 showAnimals=new ModuleSetting("show_ani","Show Animals",Items.WHEAT_SEEDS,"Shows the current position of animals as hunter."),
-                showHunters=new ModuleSetting("show_hunt","Show Hunters",Items.BOW,"Shows the positions of hunters as animal."),
+                showHunters=new ModuleSetting("show_hunt","Show Hunters",Items.BOW,"Shows the positions of hunters as animal.")
         });
     }
 
@@ -53,7 +56,7 @@ public class FarmHuntModule extends Module {
         hasRole=false;
     }
     @Override
-    public boolean shouldBeActive(String sidebarTitle, String title) {
+    public boolean shouldBeActive(String sidebarTitle, String[] sidebar, String title) {
         if("FARM HUNT".equals(sidebarTitle)) {
             NonNullList<ItemStack> inv=Minecraft.getInstance().player.inventory.mainInventory;
             Item firstSlot=inv.get(0).getItem();
@@ -90,6 +93,16 @@ public class FarmHuntModule extends Module {
             }
 
         }
+    }
+
+    @Override
+    public void onPlaySound(PlaySoundEvent event) {
+    }
+    @Override
+    public void onUserClick(InputEvent.ClickInputEvent event) {
+    }
+    @Override
+    public void onOverlayRender() {
     }
 
     private static boolean isAnimal(Entity e) {

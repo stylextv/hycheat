@@ -11,12 +11,32 @@ public class TextUtil {
     public static TextComponent convertToTextComponent(String s) {
         String[] split=s.split("§");
         TextComponent base = new StringTextComponent("");
+        String current="";
+        TextFormatting color=TextFormatting.RESET;
+        boolean bold=true;
         for(String segment : split) {
             if(!segment.isEmpty()) {
-                StringTextComponent comp = new StringTextComponent(segment.substring(1));
-                comp.getStyle().setColor(TextFormatting.fromFormattingCode(segment.charAt(0)));
-                base.appendSibling(comp);
+                TextFormatting form=TextFormatting.fromFormattingCode(segment.charAt(0));
+                if(form.isColor()) {
+                    TextComponent comp=new StringTextComponent(current);
+                    comp.getStyle().setColor(color);
+                    comp.getStyle().setBold(bold);
+                    base.appendSibling(comp);
+                    current="";
+
+                    bold=false;
+                    color=form;
+                } else if(form==TextFormatting.BOLD) {
+                    bold=true;
+                }
+                current=current+segment.substring(1);
             }
+        }
+        if(current.length()!=0) {
+            TextComponent comp=new StringTextComponent(current);
+            comp.getStyle().setColor(color);
+            comp.getStyle().setBold(bold);
+            base.appendSibling(comp);
         }
         return base;
     }

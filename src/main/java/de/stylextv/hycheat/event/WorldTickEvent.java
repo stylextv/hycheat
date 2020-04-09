@@ -7,7 +7,9 @@ import de.stylextv.hycheat.util.ScoreboardUtil;
 import de.stylextv.hycheat.util.TitleUtil;
 import de.stylextv.hycheat.world.GlowManager;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -32,13 +34,17 @@ public class WorldTickEvent {
             for(Entity e:Minecraft.getInstance().world.getAllEntities()) {
                 GlowManager.refreshGlow(e);
             }
+            GlowManager.refreshGlowStates();
 
             if(event.type == TickEvent.Type.CLIENT) {
                 updateTimer++;
                 if(updateTimer==30) {
                     updateTimer=0;
 
-                    ModuleManager.updateActiveModule(ScoreboardUtil.getSidebarTitle(), TitleUtil.getCurrentTitle());
+                    String[] sidebar=ScoreboardUtil.getSidebar();
+                    String title="";
+                    if(sidebar.length!=0) title=sidebar[0];
+                    ModuleManager.updateActiveModule(title, sidebar, TitleUtil.getCurrentTitle());
                 }
                 ModuleManager.onTick();
 

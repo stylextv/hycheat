@@ -1,8 +1,7 @@
 package de.stylextv.hycheat.main;
 
 import de.stylextv.hycheat.config.VarConfig;
-import de.stylextv.hycheat.event.UserChatEvent;
-import de.stylextv.hycheat.event.WorldTickEvent;
+import de.stylextv.hycheat.event.*;
 import de.stylextv.hycheat.gui.GuiManager;
 import de.stylextv.hycheat.module.ModuleManager;
 import net.minecraftforge.common.MinecraftForge;
@@ -35,6 +34,9 @@ public class HyCheat {
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new UserChatEvent());
         MinecraftForge.EVENT_BUS.register(new WorldTickEvent());
+        MinecraftForge.EVENT_BUS.register(new PlaySoundEvent());
+        MinecraftForge.EVENT_BUS.register(new UserAttackEvent());
+        MinecraftForge.EVENT_BUS.register(new RenderEvent());
 
         Runtime.getRuntime().addShutdownHook(new Thread(this::shutdown));
         ModuleManager.setup();

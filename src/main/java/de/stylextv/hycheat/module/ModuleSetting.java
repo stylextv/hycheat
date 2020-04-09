@@ -9,14 +9,26 @@ public class ModuleSetting {
     private String displayName;
     private Item item;
     private String[] description;
+
     private boolean enabled=true;
+    private boolean available;
+    private boolean experimental;
 
     public ModuleSetting(String name, String displayName, Item item, String description) {
+        this(name,displayName,item,description,true,false);
+    }
+    public ModuleSetting(String name, String displayName, Item item, String description, boolean available, boolean experimental) {
         this.name=name;
         this.displayName=displayName;
         this.item=item;
 
         this.description= TextUtil.splitDescription(description);
+
+        this.available=available;
+        this.experimental=experimental;
+        System.out.println(name);
+        System.out.println(!available||experimental);
+        if(!available||experimental) enabled=false;
     }
 
     public String getName() {
@@ -35,7 +47,17 @@ public class ModuleSetting {
         return enabled;
     }
     public void setEnabled(boolean enabled) {
-        this.enabled=enabled;
+        if(available) this.enabled=enabled;
+    }
+    public boolean getDefaultEnabled() {
+        if(!available||experimental) return false;
+        return true;
+    }
+    public boolean isAvailable() {
+        return available;
+    }
+    public boolean isExperimental() {
+        return experimental;
     }
 
 }

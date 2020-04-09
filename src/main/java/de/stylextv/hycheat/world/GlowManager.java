@@ -4,15 +4,18 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Scoreboard;
+import net.minecraft.scoreboard.Team;
 import net.minecraft.util.text.TextFormatting;
 
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GlowManager {
 
     private static ConcurrentHashMap<Entity, ScorePlayerTeam> glowingEntities=new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<Entity, ScorePlayerTeam> oldTeams=new ConcurrentHashMap<>();
+    private static CopyOnWriteArrayList<Entity> removeGlowList=new CopyOnWriteArrayList<>();
 
-    private static boolean ready = false;
     private static Scoreboard scoreboard;
     public static ScorePlayerTeam RED;
     public static ScorePlayerTeam RED_DARK;
@@ -21,10 +24,8 @@ public class GlowManager {
     public static ScorePlayerTeam YELLOW;
 
     public static void onEnter() {
-        if(!ready) {
-            ready=true;
-            scoreboard = Minecraft.getInstance().world.getScoreboard();
-
+        scoreboard = Minecraft.getInstance().world.getScoreboard();
+        if(scoreboard.getTeam("dark red")==null) {
             RED = scoreboard.createTeam("red");
             RED.setColor(TextFormatting.RED);
             RED_DARK = scoreboard.createTeam("dark red");
@@ -45,6 +46,14 @@ public class GlowManager {
             e.setGlowing(true);
         }
     }
+    public static void refreshGlowStates() {
+        if(removeGlowList.size()!=0) {
+            for(Entity e: removeGlowList) {
+                e.setGlowing(false);
+            }
+            removeGlowList.clear();
+        }
+    }
     public static void clearUpGlow() {
         for(Entity entity: glowingEntities.keySet()) {
             if(!entity.isAlive()&&!entity.isLiving()) glowingEntities.remove(entity);
@@ -55,6 +64,8 @@ public class GlowManager {
         if(glowingEntities.get(entity)==null) {
             glowingEntities.put(entity,team);
             entity.setGlowing(true);
+            Team old=entity.getTeam();
+            if(old!=null&&old instanceof ScorePlayerTeam) oldTeams.put(entity, (ScorePlayerTeam) old);
             scoreboard.addPlayerToTeam(entity.getScoreboardName(), team);
         }
     }
@@ -64,6 +75,9 @@ public class GlowManager {
             if(entity.getTeam()==team) scoreboard.removePlayerFromTeam(entity.getScoreboardName(), team);
             glowingEntities.remove(entity);
             entity.setGlowing(false);
+            ScorePlayerTeam oldTeam=oldTeams.get(entity);
+            if(oldTeam!=null) scoreboard.addPlayerToTeam(entity.getScoreboardName(),oldTeam);
+            removeGlowList.add(entity);
         }
     }
     public static void removeAllGlow() {
@@ -71,6 +85,9 @@ public class GlowManager {
             ScorePlayerTeam team=glowingEntities.get(entity);
             if(entity.getTeam()==team) scoreboard.removePlayerFromTeam(entity.getScoreboardName(), team);
             entity.setGlowing(false);
+            ScorePlayerTeam oldTeam=oldTeams.get(entity);
+            if(oldTeam!=null) scoreboard.addPlayerToTeam(entity.getScoreboardName(),oldTeam);
+            removeGlowList.add(entity);
         }
         glowingEntities.clear();
     }

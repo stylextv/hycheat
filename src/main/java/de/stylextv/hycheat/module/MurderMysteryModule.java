@@ -17,6 +17,8 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.Vec3d;
+import net.minecraftforge.client.event.InputEvent;
+import net.minecraftforge.client.event.sound.PlaySoundEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,7 +89,7 @@ public class MurderMysteryModule extends Module {
         hasRole=false;
     }
     @Override
-    public boolean shouldBeActive(String sidebarTitle, String title) {
+    public boolean shouldBeActive(String sidebarTitle, String[] sidebar, String title) {
         if("MURDER MYSTERY".equals(sidebarTitle)) {
             NonNullList<ItemStack> inv=Minecraft.getInstance().player.inventory.mainInventory;
             if(inv.get(4).getItem()==Items.FILLED_MAP&&inv.get(7).getItem()==Items.ARMOR_STAND) {
@@ -161,6 +163,16 @@ public class MurderMysteryModule extends Module {
                 }
             }
         }
+    }
+
+    @Override
+    public void onPlaySound(PlaySoundEvent event) {
+    }
+    @Override
+    public void onUserClick(InputEvent.ClickInputEvent event) {
+    }
+    @Override
+    public void onOverlayRender() {
     }
 
     private static boolean isSwordItem(Item item) {
