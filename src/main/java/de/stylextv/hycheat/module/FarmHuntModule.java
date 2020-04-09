@@ -9,8 +9,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.NonNullList;
-import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.client.event.sound.PlaySoundEvent;
 
 import java.util.List;
 
