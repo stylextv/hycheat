@@ -26,8 +26,6 @@ public class ModuleSetting {
 
         this.available=available;
         this.experimental=experimental;
-        System.out.println(name);
-        System.out.println(!available||experimental);
         if(!available||experimental) enabled=false;
     }
 
@@ -50,8 +48,7 @@ public class ModuleSetting {
         if(available) this.enabled=enabled;
     }
     public boolean getDefaultEnabled() {
-        if(!available||experimental) return false;
-        return true;
+        return !(!available||experimental);
     }
     public boolean isAvailable() {
         return available;
