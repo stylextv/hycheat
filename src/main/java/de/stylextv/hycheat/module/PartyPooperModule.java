@@ -177,7 +177,10 @@ public class PartyPooperModule extends Module {
         }
         if(max>1) max=1;
 
-        int bars=(int)(max*20);
+        setFeedback(max);
+    }
+    private void setFeedback(double progress) {
+        int bars=(int)(progress*20);
         String bar;
         if(bars!=0) bar=""+TextFormatting.RESET+TextFormatting.BOLD;
         else bar=""+TextFormatting.DARK_GRAY+TextFormatting.BOLD;
@@ -185,8 +188,8 @@ public class PartyPooperModule extends Module {
             bar=bar+"|";
             if(i==bars-1) bar=bar+TextFormatting.DARK_GRAY+TextFormatting.BOLD;
         }
-        feedbackString=TextFormatting.GRAY+"Analyzing player movement... ["+bar+TextFormatting.GRAY+"] "+TextFormatting.RESET+(int)(max*100)+TextFormatting.GRAY+"%";
-        feedbackColor=Color.HSBtoRGB((float)max/3f,1,1);
+        feedbackString=TextFormatting.GRAY+"Analyzing player movement... ["+bar+TextFormatting.GRAY+"] "+TextFormatting.RESET+(int)(progress*100)+TextFormatting.GRAY+"%";
+        feedbackColor=Color.HSBtoRGB((float)progress/3f,1,1);
     }
     private boolean updateNpcScore(AbstractClientPlayerEntity playerEntity) {
         double score=0;
@@ -232,7 +235,7 @@ public class PartyPooperModule extends Module {
         npcSkinTypes.put(playerEntity,type);
         npcSkins.put(playerEntity,skin);
         if(typeGot!=null&&skinGot!=null) {
-            return typeGot!=type || skinGot!=skin;
+            return !typeGot.equals(type) || !skinGot.equals(skin);
         }
         return false;
     }
@@ -245,13 +248,11 @@ public class PartyPooperModule extends Module {
     }
     @Override
     public void onUserClick(InputEvent.ClickInputEvent event) {
-        if(disableNpcAttack.isEnabled()&&isSeeker&&event.isAttack()) {
-            if(Minecraft.getInstance().objectMouseOver.getType()== RayTraceResult.Type.ENTITY) {
-                EntityRayTraceResult result=(EntityRayTraceResult) Minecraft.getInstance().objectMouseOver;
-                if(!GlowManager.isGlowing(result.getEntity())) {
-                    event.setCanceled(true);
-                    Minecraft.getInstance().player.playSound(SoundEvents.UI_BUTTON_CLICK,1,2);
-                }
+        if(disableNpcAttack.isEnabled()&&isSeeker&&event.isAttack()&&Minecraft.getInstance().objectMouseOver.getType()== RayTraceResult.Type.ENTITY) {
+            EntityRayTraceResult result=(EntityRayTraceResult) Minecraft.getInstance().objectMouseOver;
+            if(!GlowManager.isGlowing(result.getEntity())) {
+                event.setCanceled(true);
+                Minecraft.getInstance().player.playSound(SoundEvents.UI_BUTTON_CLICK,1,2);
             }
         }
     }
