@@ -4,7 +4,6 @@ import de.stylextv.hycheat.util.TextUtil;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
-import net.minecraftforge.event.entity.player.AttackEntityEvent;
 
 public abstract class Module {
 

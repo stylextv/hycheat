@@ -2,7 +2,6 @@ package de.stylextv.hycheat.module;
 
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
-import net.minecraftforge.event.entity.player.AttackEntityEvent;
 
 public class ModuleManager {
 
