@@ -30,9 +30,10 @@ public abstract class Module {
     public abstract void onDisable();
     public abstract boolean shouldBeActive(String sidebarTitle, String[] sidebar, String title);
     public abstract void onTick();
-    public abstract void onPlaySound(PlaySoundEvent event);
-    public abstract void onUserClick(InputEvent.ClickInputEvent event);
-    public abstract void onOverlayRender();
+
+    public void onPlaySound(PlaySoundEvent event) {}
+    public void onUserClick(InputEvent.ClickInputEvent event) {}
+    public void onOverlayRender() {}
 
     public String getName() {
         return name;

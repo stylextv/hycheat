@@ -97,14 +97,4 @@ public class PropHuntModule extends Module {
         }
     }
 
-    @Override
-    public void onPlaySound(PlaySoundEvent event) {
-    }
-    @Override
-    public void onUserClick(InputEvent.ClickInputEvent event) {
-    }
-    @Override
-    public void onOverlayRender() {
-    }
-
 }

@@ -165,16 +165,6 @@ public class MurderMysteryModule extends Module {
         }
     }
 
-    @Override
-    public void onPlaySound(PlaySoundEvent event) {
-    }
-    @Override
-    public void onUserClick(InputEvent.ClickInputEvent event) {
-    }
-    @Override
-    public void onOverlayRender() {
-    }
-
     private static boolean isSwordItem(Item item) {
         for(Item check:SWORD_SKINS) {
             if(check.equals(item)) return true;

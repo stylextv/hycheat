@@ -95,16 +95,6 @@ public class FarmHuntModule extends Module {
         }
     }
 
-    @Override
-    public void onPlaySound(PlaySoundEvent event) {
-    }
-    @Override
-    public void onUserClick(InputEvent.ClickInputEvent event) {
-    }
-    @Override
-    public void onOverlayRender() {
-    }
-
     private static boolean isAnimal(Entity e) {
         EntityType type=e.getType();
         for(EntityType check:ANIMAL_TYPES) {
