@@ -57,6 +57,12 @@ public class GlowManager {
     public static void clearUpGlow() {
         for(Entity entity: glowingEntities.keySet()) {
             if(!entity.isAlive()&&!entity.isLiving()) glowingEntities.remove(entity);
+            else {
+                ScorePlayerTeam team=glowingEntities.get(entity);
+                if(!team.equals(entity.getTeam())) {
+                    scoreboard.addPlayerToTeam(entity.getScoreboardName(), team);
+                }
+            }
         }
     }
 
