@@ -31,8 +31,9 @@ public abstract class Module {
     public abstract boolean shouldBeActive(String sidebarTitle, String[] sidebar, String title);
     public abstract void onTick();
 
-    //to be overridden
-    public void onPlaySound(PlaySoundEvent event) {}
+    public void onPlaySound(PlaySoundEvent event) {
+        //to be overridden
+    }
     //to be overridden
     public void onUserClick(InputEvent.ClickInputEvent event) {}
     //to be overridden
