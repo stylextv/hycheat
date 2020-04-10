@@ -51,7 +51,9 @@ public class MurderMysteryModule extends Module {
             Items.DIAMOND_HOE,
             Items.SHEARS,
             Items.SALMON,
-            Items.REDSTONE_TORCH
+            Items.REDSTONE_TORCH,
+            Items.ROSE_BUSH,
+            Items.OAK_BOAT
     };
 
     private int foundMurderers;
