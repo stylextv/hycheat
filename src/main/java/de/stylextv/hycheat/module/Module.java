@@ -34,10 +34,12 @@ public abstract class Module {
     public void onPlaySound(PlaySoundEvent event) {
         //to be overridden
     }
-    //to be overridden
-    public void onUserClick(InputEvent.ClickInputEvent event) {}
-    //to be overridden
-    public void onOverlayRender() {}
+    public void onUserClick(InputEvent.ClickInputEvent event) {
+        //to be overridden
+    }
+    public void onOverlayRender() {
+        //to be overridden
+    }
 
     public String getName() {
         return name;
