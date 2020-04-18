@@ -8,7 +8,7 @@ public class RenderEvent {
 
     @SubscribeEvent
     public void onOverlayRender(RenderGameOverlayEvent.Post event) {
-        if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
+        if(event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
             ModuleManager.onOverlayRender();
         }
     }

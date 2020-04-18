@@ -5,6 +5,7 @@ import de.stylextv.hycheat.module.Module;
 import de.stylextv.hycheat.module.ModuleManager;
 import de.stylextv.hycheat.util.TextUtil;
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponent;
 import net.minecraft.util.text.event.ClickEvent;
 import net.minecraft.util.text.event.HoverEvent;
