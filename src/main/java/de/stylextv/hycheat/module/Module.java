@@ -3,7 +3,6 @@ package de.stylextv.hycheat.module;
 import de.stylextv.hycheat.util.TextUtil;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
 
 public abstract class Module {
